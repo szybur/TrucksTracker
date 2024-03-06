@@ -4,6 +4,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface VehiclesRepository {
 
-    fun getVehicles(): Flow<Result<List<Vehicle>>>
+    fun getVehicles(): Flow<Result<List<VehicleDetails>>>
 
 }
