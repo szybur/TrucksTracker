@@ -10,13 +10,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import pl.szybur.truckstracker.data.api.VehicleDetails
 import pl.szybur.truckstracker.data.api.isNearTarget
 import pl.szybur.truckstracker.ui.viewmodels.TrucksViewModel
 
 @Composable
 fun TrucksApp() {
-    val trucksViewModel: TrucksViewModel = viewModel()//hiltViewModel()
+    val trucksViewModel: TrucksViewModel = hiltViewModel()
     val scope = rememberCoroutineScope()
     val trucksResult = trucksViewModel.trucks.collectAsState(
         initial = Result.success(listOf()),
@@ -24,16 +28,31 @@ fun TrucksApp() {
     ).value
     if (trucksResult.isSuccess) {
         val trucksList = trucksResult.getOrDefault(listOf())
-        Column {
-            Text(
-                text = "Trucks that are close: ${trucksList.filter { it.location.isNearTarget }.size}",
-                modifier = Modifier.padding(4.dp)
+        val navController = rememberNavController()
+        TrucksNavHost(navController = navController, trucksList = trucksList)
+    } else {
+        Text(text = "Error fetching data ${trucksResult.exceptionOrNull()?.message}")
+    }
+}
 
-            )
-            TrucksList(
-                vehicles = trucksList,
-                onClick = {}
-            )
+@Composable
+fun TrucksNavHost(
+    navController: NavHostController,
+    trucksList: List<VehicleDetails>
+) {
+    Column {
+        Text(
+            text = "Trucks that are close: ${trucksList.filter { it.location.isNearTarget }.size}",
+            modifier = Modifier.padding(4.dp)
+
+        )
+        NavHost(navController = navController, startDestination = Screen.Home.route) {
+            composable(route = Screen.Home.route) {
+                TrucksList(
+                    vehicles = trucksList,
+                    onClick = {}
+                )
+            }
         }
     }
 }

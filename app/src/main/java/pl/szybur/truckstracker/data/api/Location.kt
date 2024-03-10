@@ -9,7 +9,7 @@ import kotlin.math.sqrt
 data class Location(val latitude: Double = Double.POSITIVE_INFINITY, val longitude: Double = Double.POSITIVE_INFINITY)
 
 fun Location.distance(location: Location): Double {
-    val earthRadius = 6371.0 // Radius of the Earth in kilometers
+    val earthRadius = 6371.0
     val dLat = Math.toRadians(location.latitude - latitude)
     val dLon = Math.toRadians(location.longitude - longitude)
     val originLat = Math.toRadians(latitude)
