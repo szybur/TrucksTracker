@@ -14,6 +14,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.gson.Gson
 import pl.szybur.truckstracker.data.api.VehicleDetails
 import pl.szybur.truckstracker.data.api.isNearTarget
 import pl.szybur.truckstracker.ui.viewmodels.TrucksViewModel
@@ -50,8 +51,18 @@ fun TrucksNavHost(
             composable(route = Screen.Home.route) {
                 TrucksList(
                     vehicles = trucksList,
-                    onClick = {}
+                    onClick = {
+                        navController.navigate(Screen.Details.createRoute(it))
+                    }
                 )
+            }
+            composable(
+                route = Screen.Details.route,
+                arguments = Screen.Details.navArguments
+            ) {
+                val detailsJson = it.arguments?.getString("item")
+                val details = Gson().fromJson(detailsJson, VehicleDetails::class.java)
+                TruckDetailsPanel(details = details)
             }
         }
     }
