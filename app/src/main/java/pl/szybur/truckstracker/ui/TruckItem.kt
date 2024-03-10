@@ -19,7 +19,7 @@ fun TruckItem(vehicleDetails: VehicleDetails,
               onClick: (VehicleDetails) -> Unit,
               modifier: Modifier = Modifier) {
     Surface(
-        modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp),
+        modifier = modifier.padding(horizontal = 4.dp),
         onClick = { onClick(vehicleDetails) }
     ) {
         Row {
