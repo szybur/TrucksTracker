@@ -3,7 +3,6 @@ package pl.szybur.truckstracker.ui
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.google.gson.Gson
 import pl.szybur.truckstracker.data.api.VehicleDetails
 
 sealed class Screen(
@@ -13,11 +12,13 @@ sealed class Screen(
     data object Home : Screen("home")
 
     data object Details : Screen(
-        route = "details/{item}",
-        navArguments = listOf(navArgument("item") {
+        route = "details/{$ID_PARAM}",
+        navArguments = listOf(navArgument(ID_PARAM) {
             type = NavType.StringType
         })
     ) {
-        fun createRoute(details: VehicleDetails) = "details/${Gson().toJson(details)}"
+        fun createRoute(details: VehicleDetails) = "details/${details.vehicleId}"
     }
 }
+
+const val ID_PARAM = "id"

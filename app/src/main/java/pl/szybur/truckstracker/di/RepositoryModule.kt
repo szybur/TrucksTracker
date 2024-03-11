@@ -7,7 +7,6 @@ import dagger.hilt.android.components.ViewModelComponent
 import pl.szybur.truckstracker.data.api.VehiclesRepository
 import pl.szybur.truckstracker.data.rest.RestRepository
 
-
 @Module
 @InstallIn(ViewModelComponent::class)
 class RepositoryModule {
