@@ -40,4 +40,4 @@ class RestRepository: VehiclesRepository {
     }
 }
 
-private const val FETCH_DELAY = 10000L
+private const val FETCH_DELAY = 5000L

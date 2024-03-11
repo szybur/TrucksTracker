@@ -21,7 +21,7 @@ fun TruckDetailsPanel(
 ) {
     Column {
         Text(
-            text = "TruckDetails",
+            text = "Truck details:",
             modifier = modifier.padding(vertical = 4.dp),
         )
         Text(
@@ -29,11 +29,11 @@ fun TruckDetailsPanel(
             modifier = modifier.padding(vertical = 4.dp),
         )
         Text(
-            text = "latitude: ${details.location.latitude}",
+            text = "Latitude: ${details.location.latitude}",
             modifier = modifier.padding(vertical = 4.dp),
         )
         Text(
-            text = "longitude: ${details.location.longitude}",
+            text = "Longitude: ${details.location.longitude}",
             modifier = modifier.padding(vertical = 4.dp),
         )
         Row {
